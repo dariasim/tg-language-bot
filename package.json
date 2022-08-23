@@ -1,0 +1,28 @@
+{
+  "name": "tg-language-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot to memorise words in new languages",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "serverless deploy --aws-profile admin-personal --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dariasim/tg-language-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dariasim/tg-language-bot/issues"
+  },
+  "homepage": "https://github.com/dariasim/tg-language-bot#readme",
+  "dependencies": {
+    "serverless": "^3.1.0",
+    "serverless-webpack": "^5.6.1",
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
