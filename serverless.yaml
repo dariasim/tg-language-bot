@@ -1,0 +1,33 @@
+service: tg-language-bot
+
+# throw error before trying to deploy if something is wrong in config
+configValidationMode: error
+
+# create an optimized package for our functions
+package:
+  individually: true
+
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js' # Name of webpack configuration file
+    includeModules: false # Node modules configuration for packaging
+    packager: 'npm' # Packager that will be used to package your external modules
+    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
+
+plugins:
+  - serverless-webpack # https://github.com/serverless-heaven/serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 128
+  region: eu-central-1
+
+functions:
+  bot:
+    handler: src/lambda/bot.handler
+    events:
+      - http:
+          method: post
+          path: bot
+          cors: true
