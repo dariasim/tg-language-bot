@@ -7,21 +7,17 @@ configValidationMode: error
 package:
   individually: true
 
-custom:
-  webpack:
-    webpackConfig: 'webpack.config.js' # Name of webpack configuration file
-    includeModules: false # Node modules configuration for packaging
-    packager: 'npm' # Packager that will be used to package your external modules
-    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
-
 plugins:
-  - serverless-webpack # https://github.com/serverless-heaven/serverless-webpack
+  - serverless-plugin-typescript
+  - serverless-offline
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs16.x
   memorySize: 128
   region: eu-central-1
+  environment:
+    TELEGRAM_TOKEN: ${ssm:/tg-language-bot-token}
 
 functions:
   bot:
@@ -30,4 +26,12 @@ functions:
       - http:
           method: post
           path: bot
+          cors: true
+
+  setCommands:
+    handler: src/lambda/setCommands.handler
+    events:
+      - http:
+          method: post
+          path: setCommands
           cors: true
