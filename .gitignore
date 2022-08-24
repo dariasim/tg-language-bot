@@ -1,2 +1,14 @@
+# macos stuff
+.DS_STORE
+
+# npm dependencies
 node_modules
+
+# serverless stuff
 .serverless
+
+# typescript build stuff
+dist
+
+# local environment variables
+.env
