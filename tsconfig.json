@@ -1,16 +1,11 @@
 {
+  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-    "preserveConstEnums": true,
-    "strictNullChecks": true,
-    "sourceMap": true,
-    "allowJs": true,
-    "target": "ES2022",
-    "outDir": "dist",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "lib": [
-      "es2015"
-    ],
-    "rootDir": "./"
-  }
+    "rootDir": ".",
+    "outDir": "build"
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts"
+  ]
 }

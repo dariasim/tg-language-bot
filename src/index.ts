@@ -1,16 +1,20 @@
-import { sendMessage, sendButtons } from '../services/telegram-service';
-import { CallbackQueryType, TelegramEvent } from '../types/Telegram';
+import { sendMessage, sendButtons } from './services/telegram-service';
+import { CallbackQueryType, TelegramEvent } from './types/Telegram';
 
-export const handler = async (event) => {
+import type { HttpFunction } from '@google-cloud/functions-framework/build/src/functions';
+
+export const telegramLanguageBot: HttpFunction = async (req, res) => {
 
   try {
 
-    // debug info
-    const body: TelegramEvent = JSON.parse(event.body);
-    console.log('DEBUG EVENT', JSON.stringify(body));
 
+
+    const body: TelegramEvent = req.body;
     const message: any = body?.message || body?.callback_query?.message;
     const chatId = message.chat.id;
+    const from = message.from;
+
+    console.log(JSON.stringify({ user: from, body: body, chatId: chatId }));
 
     const isBotCommand = body?.message?.entities?.find(entity => entity.type === 'bot_command')
       ? true
@@ -40,13 +44,12 @@ export const handler = async (event) => {
       await sendMessage(chatId, 'Wtf are you doing?');
     }
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'Success!' })
-    };
+    res.status(200);
+    res.send(JSON.stringify({ message: 'Success!' }));
 
   } catch (error) {
     console.log('DEBUG ERROR', error);
-    return { statusCode: 200 };
+    res.status(500);
+    res.send(JSON.stringify({ message: 'Error!', error }));
   }
 };

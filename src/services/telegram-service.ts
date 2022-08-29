@@ -6,7 +6,7 @@ import axios from "axios";
 import { CallbackQueryType, TelegramCommand } from '../types/Telegram';
 
 const baseUrl = 'https://api.telegram.org/bot'
-const token = process.env.TELEGRAM_TOKEN;
+const token = process.env.LANGUAGE_BOT_TELEGRAM_TOKEN;
 
 const generateButton = (text: string, type: CallbackQueryType, value: string) => {
   return { text, callback_data: JSON.stringify({ type, value }) };
