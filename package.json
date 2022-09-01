@@ -2,9 +2,18 @@
   "name": "tg-language-bot",
   "version": "1.0.0",
   "description": "Telegram bot to memorise words in new languages",
-  "main": "index.js",
+  "main": "build/src/index.js",
   "scripts": {
-    "deploy": "serverless deploy --aws-profile admin-personal --verbose"
+    "build": "rm -rf dist && tsc",
+    "start": "functions-framework --source=build/src/ --target=telegramLanguageBot",
+    "deploy": "npm run build && gcloud functions deploy telegramLanguageBot --runtime nodejs16 --trigger-http --allow-unauthenticated",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "pretest": "npm run compile",
+    "posttest": "npm run lint",
+    "postinstall": "touch .env && echo LANGUAGE_BOT_TELEGRAM_TOKEN=\"\" > .env"
   },
   "repository": {
     "type": "git",
@@ -18,15 +27,15 @@
   },
   "homepage": "https://github.com/dariasim/tg-language-bot#readme",
   "dependencies": {
+    "@google-cloud/functions-framework": "^3.1.2",
+    "axios": "^0.27.2",
     "dotenv": "^16.0.1",
-    "axios": "^0.27.2"
+    "gts": "^3.1.0"
   },
   "devDependencies": {
-    "serverless": "^3.1.0",
-    "serverless-webpack": "^5.6.1",
+    "@types/express": "^4.17.13",
+    "@types/node": "^14.11.2",
     "nodemon": "^2.0.19",
-    "serverless-offline": "^9.2.6",
-    "serverless-plugin-typescript": "^2.1.2",
-    "typescript": "^4.7.4"
+    "typescript": "^4.0.3"
   }
 }

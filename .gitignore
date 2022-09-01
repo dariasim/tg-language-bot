@@ -8,7 +8,7 @@ node_modules
 .serverless
 
 # typescript build stuff
-dist
+build
 
 # local environment variables
 .env
